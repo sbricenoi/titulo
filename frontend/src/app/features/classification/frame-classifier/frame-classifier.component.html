@@ -1,0 +1,183 @@
+<div class="frame-classifier-container" (window:keydown)="onKeyPress($event)" tabindex="0">
+  <!-- Header con estadísticas -->
+  <div class="header">
+    <h1>🏷️ Clasificador de Frames</h1>
+    
+    <div class="stats" *ngIf="stats">
+      <div class="stat-card">
+        <span class="stat-value">{{ stats.total_frames_available }}</span>
+        <span class="stat-label">Total Frames</span>
+      </div>
+      <div class="stat-card success">
+        <span class="stat-value">{{ stats.total_classified }}</span>
+        <span class="stat-label">Clasificados</span>
+      </div>
+      <div class="stat-card warning">
+        <span class="stat-value">{{ stats.unclassified }}</span>
+        <span class="stat-label">Pendientes</span>
+      </div>
+      <div class="stat-card primary">
+        <span class="stat-value">{{ stats.progress_percent.toFixed(1) }}%</span>
+        <span class="stat-label">Progreso</span>
+      </div>
+    </div>
+    
+    <div class="controls">
+      <button 
+        class="btn btn-secondary" 
+        (click)="toggleUnclassifiedFilter()"
+        [disabled]="loading || analyzing">
+        {{ showOnlyUnclassified ? '📋 Mostrar todos' : '✨ Solo sin clasificar' }}
+      </button>
+      <button 
+        class="btn"
+        [class.btn-success]="showOnlyWithAnimals"
+        [class.btn-secondary]="!showOnlyWithAnimals"
+        (click)="toggleAnimalFilter()"
+        [disabled]="loading || analyzing">
+        {{ showOnlyWithAnimals ? '✅ Solo con animales' : '🐾 Filtrar animales' }}
+      </button>
+      <button 
+        class="btn btn-warning" 
+        (click)="triggerAnalysis()"
+        [disabled]="loading || analyzing"
+        title="Analizar videos nuevos ahora">
+        <span *ngIf="!analyzing">🤖 Analizar Ahora</span>
+        <span *ngIf="analyzing">⏳ Analizando...</span>
+      </button>
+      <button 
+        class="btn btn-primary" 
+        (click)="loadFrames()"
+        [disabled]="loading || analyzing">
+        🔄 Recargar
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" *ngIf="loading && frames.length === 0">
+    <div class="spinner"></div>
+    <p>Cargando frames...</p>
+  </div>
+
+  <!-- Error -->
+  <div class="error-box" *ngIf="error">
+    <p>❌ {{ error }}</p>
+  </div>
+
+  <!-- Clasificador -->
+  <div class="classifier" *ngIf="currentFrame && !loading">
+    <!-- Progreso -->
+    <div class="progress-section">
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progress"></div>
+      </div>
+      <span class="progress-text">
+        Frame {{ currentFrameIndex + 1 }} de {{ frames.length }}
+      </span>
+    </div>
+
+    <!-- Frame info -->
+    <div class="frame-info">
+      <div class="info-item">
+        <strong>Video:</strong> {{ currentFrame.video_name }}
+      </div>
+      <div class="info-item">
+        <strong>Frame:</strong> {{ currentFrame.frame_number }}
+      </div>
+      <div class="info-item">
+        <strong>Timestamp:</strong> {{ formatTimestamp(currentFrame.timestamp) }}
+      </div>
+      <div class="info-item">
+        <strong>Detecciones:</strong> {{ currentFrame.detections.length }}
+      </div>
+    </div>
+
+    <!-- Imagen del frame -->
+    <div class="frame-image-container">
+      <img 
+        [src]="getImageUrl(currentFrame)" 
+        alt="Frame {{ currentFrame.frame_number }}"
+        class="frame-image"
+      />
+      
+      <!-- Detecciones overlay info -->
+      <div class="detections-overlay" *ngIf="currentFrame.detections.length > 0">
+        <div 
+          class="detection-badge" 
+          *ngFor="let det of currentFrame.detections"
+          [class.ferret]="det.entity_type === 'ferret'"
+          [class.person]="det.entity_type === 'person'">
+          {{ det.entity_type }} ({{ (det.confidence * 100).toFixed(0) }}%)
+        </div>
+      </div>
+    </div>
+
+    <!-- Categorías de clasificación -->
+    <div class="classification-section">
+      <h3>Selecciona el comportamiento:</h3>
+      
+      <div class="behavior-grid">
+        <button
+          *ngFor="let behavior of behaviors"
+          class="behavior-btn"
+          [class.primary]="behavior.id === 'playing' || behavior.id === 'exploring'"
+          [class.success]="behavior.id === 'resting'"
+          [class.warning]="behavior.id === 'eating' || behavior.id === 'drinking'"
+          [class.secondary]="behavior.id === 'unknown' || behavior.id === 'no_ferret'"
+          (click)="classifyFrame(behavior.id)"
+          [disabled]="loading"
+          [title]="behavior.description">
+          <span class="behavior-icon">{{ behavior.label.split(' ')[0] }}</span>
+          <span class="behavior-text">{{ behavior.label.substring(3) }}</span>
+          <span class="behavior-key">[{{ behaviors.indexOf(behavior) + 1 }}]</span>
+        </button>
+      </div>
+
+      <!-- Notas opcionales -->
+      <div class="notes-section">
+        <label for="notes">Notas opcionales:</label>
+        <textarea 
+          id="notes"
+          [(ngModel)]="notes"
+          placeholder="Agrega observaciones sobre este frame..."
+          rows="2"></textarea>
+      </div>
+    </div>
+
+    <!-- Navegación -->
+    <div class="navigation">
+      <button 
+        class="btn btn-secondary"
+        (click)="previousFrame()"
+        [disabled]="currentFrameIndex === 0 || loading">
+        ← Anterior
+      </button>
+      
+      <button 
+        class="btn btn-secondary"
+        (click)="skipFrame()"
+        [disabled]="loading">
+        Saltar →
+      </button>
+    </div>
+
+    <!-- Ayuda de atajos -->
+    <div class="shortcuts-help">
+      <strong>⌨️ Atajos:</strong> 
+      1-5: Clasificar | 0: Desconocido | ←/→: Navegar | Espacio: Saltar
+    </div>
+  </div>
+
+  <!-- Sin frames -->
+  <div class="no-frames" *ngIf="!loading && frames.length === 0 && !error">
+    <div class="empty-state">
+      <span class="empty-icon">🎉</span>
+      <h2>¡Todo clasificado!</h2>
+      <p>No hay frames pendientes de clasificación.</p>
+      <button class="btn btn-primary" (click)="toggleUnclassifiedFilter()">
+        Ver todos los frames
+      </button>
+    </div>
+  </div>
+</div>

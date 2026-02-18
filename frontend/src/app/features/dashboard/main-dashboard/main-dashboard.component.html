@@ -1,0 +1,42 @@
+<!-- Dashboard Principal con Tabs -->
+<div class="dashboard-container">
+  <mat-tab-group>
+    <!-- Tab de Vista Completa -->
+    <mat-tab label="Vista Completa">
+      <div class="tab-content">
+        <div class="section">
+          <app-camera-grid></app-camera-grid>
+        </div>
+        <div class="section">
+          <app-individual-report></app-individual-report>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Tab de Solo Cámaras -->
+    <mat-tab label="Cámaras">
+      <div class="tab-content">
+        <app-camera-grid></app-camera-grid>
+      </div>
+    </mat-tab>
+
+    <!-- Tab de Gestión de Cámaras -->
+    <mat-tab label="Gestión de Cámaras">
+      <div class="tab-content">
+        <app-camera-manager></app-camera-manager>
+      </div>
+    </mat-tab>
+
+    <!-- Tab de Solo Individuos -->
+    <mat-tab label="Individuos">
+      <div class="tab-content">
+        <app-individual-report></app-individual-report>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+
+
+
+

@@ -1,0 +1,342 @@
+<!-- Reporte de Individuos Tracked -->
+<div class="report-container">
+  <!-- Header -->
+  <div class="report-header">
+    <h2>
+      <mat-icon>people</mat-icon>
+      Reporte de Individuos
+    </h2>
+    <div class="header-actions">
+      <button mat-raised-button (click)="exportData()" [disabled]="individuals.length === 0">
+        <mat-icon>download</mat-icon>
+        Exportar
+      </button>
+      <button mat-icon-button (click)="reload()" matTooltip="Recargar">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Estadísticas Rápidas -->
+  <div class="stats-cards">
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-icon">
+          <mat-icon>pets</mat-icon>
+        </div>
+        <div class="stat-info">
+          <h3>{{ totalIndividuals }}</h3>
+          <p>Total Individuos</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card success">
+      <mat-card-content>
+        <div class="stat-icon">
+          <mat-icon>visibility</mat-icon>
+        </div>
+        <div class="stat-info">
+          <h3>{{ activeIndividuals }}</h3>
+          <p>Activos Ahora</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card info">
+      <mat-card-content>
+        <div class="stat-icon">
+          <mat-icon>videocam</mat-icon>
+        </div>
+        <div class="stat-info">
+          <h3>{{ totalDetections }}</h3>
+          <p>Total Detecciones</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Tabla de Individuos -->
+  <mat-card class="table-card">
+    <!-- Barra de búsqueda -->
+    <mat-form-field class="search-field">
+      <mat-label>Buscar individuo</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ej. F1">
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading-container">
+      <mat-spinner></mat-spinner>
+      <p>Cargando individuos...</p>
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="error" class="error-container">
+      <mat-icon>error</mat-icon>
+      <p>{{ error }}</p>
+      <button mat-raised-button color="primary" (click)="reload()">
+        Reintentar
+      </button>
+    </div>
+
+    <!-- Tabla -->
+    <div *ngIf="!loading && !error" class="table-container">
+      <table mat-table [dataSource]="dataSource" matSort>
+        
+        <!-- Columna ID -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+          <td mat-cell *matCellDef="let individual">
+            <span class="id-badge">{{ individual.id }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Columna Estado -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let individual">
+            <mat-chip [class.active]="isActive(individual)" [class.inactive]="!isActive(individual)">
+              <mat-icon>{{ isActive(individual) ? 'fiber_manual_record' : 'radio_button_unchecked' }}</mat-icon>
+              {{ isActive(individual) ? 'Activo' : 'Inactivo' }}
+            </mat-chip>
+          </td>
+        </ng-container>
+
+        <!-- Columna Comportamiento -->
+        <ng-container matColumnDef="behavior">
+          <th mat-header-cell *matHeaderCellDef>Comportamiento</th>
+          <td mat-cell *matCellDef="let individual">
+            <div class="behavior-cell">
+              <mat-chip 
+                *ngIf="individual.currentBehavior"
+                [style.background-color]="getBehaviorColor(individual.currentBehavior)"
+                [style.color]="'white'">
+                {{ getBehaviorName(individual.currentBehavior) }}
+              </mat-chip>
+              <span *ngIf="!individual.currentBehavior" class="no-data">-</span>
+              <span *ngIf="individual.behaviorConfidence !== undefined && individual.behaviorConfidence !== null" class="confidence-badge">
+                {{ (individual.behaviorConfidence * 100).toFixed(0) }}%
+              </span>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Columna Cámaras -->
+        <ng-container matColumnDef="cameras">
+          <th mat-header-cell *matHeaderCellDef>Cámaras</th>
+          <td mat-cell *matCellDef="let individual">
+            <div class="cameras-cell">
+              <mat-chip *ngFor="let camId of individual.cameras" class="camera-chip">
+                <mat-icon>videocam</mat-icon>
+                Cám {{ camId + 1 }}
+              </mat-chip>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Columna Confianza -->
+        <ng-container matColumnDef="confidence">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Confianza</th>
+          <td mat-cell *matCellDef="let individual">
+            <div class="confidence-cell" *ngIf="individual.confidence !== undefined && individual.confidence !== null">
+              <div class="confidence-bar">
+                <div 
+                  class="confidence-fill" 
+                  [style.width.%]="individual.confidence * 100"
+                  [class.high]="individual.confidence >= 0.8"
+                  [class.medium]="individual.confidence >= 0.5 && individual.confidence < 0.8"
+                  [class.low]="individual.confidence < 0.5">
+                </div>
+              </div>
+              <span class="confidence-text">
+                {{ (individual.confidence * 100).toFixed(0) }}%
+              </span>
+            </div>
+            <span *ngIf="individual.confidence === undefined || individual.confidence === null" class="no-data">-</span>
+          </td>
+        </ng-container>
+
+        <!-- Columna Tiempo Activo -->
+        <ng-container matColumnDef="timeActive">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Tiempo Activo</th>
+          <td mat-cell *matCellDef="let individual">
+            <span class="time-badge">
+              <mat-icon>schedule</mat-icon>
+              {{ formatDuration(individual.totalTime) }}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Columna Última Vez Visto -->
+        <ng-container matColumnDef="lastSeen">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Última Vez Visto</th>
+          <td mat-cell *matCellDef="let individual">
+            <span class="last-seen">
+              {{ formatTimeAgo(individual.lastSeen) }}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Columna Acciones -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let individual">
+            <button 
+              mat-icon-button 
+              (click)="viewDetails(individual)" 
+              matTooltip="Ver detalles">
+              <mat-icon>info</mat-icon>
+            </button>
+            <button 
+              mat-icon-button 
+              (click)="viewTrajectory(individual)" 
+              matTooltip="Ver trayectoria">
+              <mat-icon>timeline</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <!-- Fila cuando no hay datos -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+            <div class="no-data-container">
+              <mat-icon>info</mat-icon>
+              <p>No hay individuos detectados</p>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Paginador -->
+      <mat-paginator 
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        [pageSize]="10"
+        showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  </mat-card>
+
+  <!-- Panel de Historial de Comportamientos -->
+  <div class="history-panel" [class.show]="showHistory" *ngIf="selectedIndividual">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <h3>
+            <mat-icon>history</mat-icon>
+            Historial de {{ selectedIndividual.id }}
+          </h3>
+        </mat-card-title>
+        <button mat-icon-button (click)="closeDetails()" class="close-button">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-card-header>
+
+      <mat-card-content>
+        <!-- Estadísticas Rápidas -->
+        <div class="history-stats" *ngIf="behaviorStats && behaviorStats.behaviors">
+          <h4>Estadísticas (últimas 24h)</h4>
+          <div class="stats-grid">
+            <div class="stat-item" *ngFor="let behavior of getBehaviorsArray()">
+              <mat-chip 
+                [style.background-color]="getBehaviorColor(behavior.key)"
+                [style.color]="'white'">
+                {{ behavior.nameEs }}
+              </mat-chip>
+              <div class="stat-details">
+                <span class="count">{{ behavior.count }} veces</span>
+                <span class="percentage" *ngIf="behavior.percentage !== undefined && behavior.percentage !== null">({{ behavior.percentage.toFixed(1) }}%)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loading -->
+        <div *ngIf="loadingHistory" class="loading-container">
+          <mat-spinner diameter="40"></mat-spinner>
+          <p>Cargando historial...</p>
+        </div>
+
+        <!-- Error -->
+        <div *ngIf="historyError" class="error-message">
+          <mat-icon>error</mat-icon>
+          <p>{{ historyError }}</p>
+        </div>
+
+        <!-- Tabla de Historial -->
+        <div *ngIf="!loadingHistory && !historyError && behaviorHistory.length > 0" class="history-table">
+          <h4>Últimos 20 Comportamientos</h4>
+          <table mat-table [dataSource]="behaviorHistory" class="compact-table">
+            
+            <!-- Columna Timestamp -->
+            <ng-container matColumnDef="timestamp">
+              <th mat-header-cell *matHeaderCellDef>Fecha/Hora</th>
+              <td mat-cell *matCellDef="let entry">
+                {{ entry.timestamp | date:'short' }}
+              </td>
+            </ng-container>
+
+            <!-- Columna Comportamiento -->
+            <ng-container matColumnDef="behavior">
+              <th mat-header-cell *matHeaderCellDef>Comportamiento</th>
+              <td mat-cell *matCellDef="let entry">
+                <mat-chip 
+                  [style.background-color]="getBehaviorColor(entry.behavior)"
+                  [style.color]="'white'"
+                  class="small-chip">
+                  {{ entry.behaviorEs || getBehaviorName(entry.behavior) }}
+                </mat-chip>
+              </td>
+            </ng-container>
+
+            <!-- Columna Confianza -->
+            <ng-container matColumnDef="confidence">
+              <th mat-header-cell *matHeaderCellDef>Confianza</th>
+              <td mat-cell *matCellDef="let entry">
+                {{ (entry.confidence * 100).toFixed(0) }}%
+              </td>
+            </ng-container>
+
+            <!-- Columna Cámara -->
+            <ng-container matColumnDef="camera">
+              <th mat-header-cell *matHeaderCellDef>Cámara</th>
+              <td mat-cell *matCellDef="let entry">
+                <mat-icon class="camera-icon">videocam</mat-icon>
+                {{ entry.cameraId !== null ? 'Cám ' + (entry.cameraId + 1) : '-' }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['timestamp', 'behavior', 'confidence', 'camera']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['timestamp', 'behavior', 'confidence', 'camera'];"></tr>
+          </table>
+        </div>
+
+        <!-- Sin datos -->
+        <div *ngIf="!loadingHistory && behaviorHistory.length === 0" class="no-history">
+          <mat-icon>inbox</mat-icon>
+          <p>No hay historial de comportamientos para este individuo</p>
+        </div>
+
+        <!-- Botón de descarga -->
+        <div class="history-actions">
+          <button 
+            mat-raised-button 
+            color="primary" 
+            (click)="downloadBehaviorLog(selectedIndividual.id)"
+            *ngIf="behaviorHistory.length > 0">
+            <mat-icon>download</mat-icon>
+            Descargar Bitácora Completa
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+
+
+
+

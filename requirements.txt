@@ -1,0 +1,87 @@
+# ============================================
+# Ferret Multi-Camera Behavioral AI System
+# Dependencias del Proyecto
+# ============================================
+
+# --- Core Dependencies ---
+opencv-python==4.8.1.78          # Procesamiento de video y cámaras
+numpy==1.24.3                     # Operaciones numéricas
+scipy==1.11.3                     # Algoritmos científicos
+
+# --- Deep Learning ---
+torch==2.1.0                      # Framework principal de deep learning
+torchvision==0.16.0               # Modelos de visión por computadora
+ultralytics==8.0.200              # YOLOv8 para detección
+
+# --- Tracking y Re-Identificación ---
+deep-sort-realtime==1.3.2         # Tracking multi-objeto
+torchreid==0.2.5                  # Re-identificación entre cámaras
+filterpy==1.4.5                   # Filtros de Kalman
+
+# --- API y Web ---
+fastapi==0.104.1                  # Framework web para API
+uvicorn[standard]==0.24.0         # Servidor ASGI
+websockets==12.0                  # WebSocket para streaming
+pydantic==2.5.0                   # Validación de datos
+
+# --- Utilidades ---
+python-dotenv==1.0.0              # Variables de entorno
+loguru==0.7.2                     # Sistema de logging avanzado
+pyyaml==6.0.1                     # Configuración en YAML
+python-multipart==0.0.6           # Manejo de formularios multipart
+
+# --- Visualización ---
+matplotlib==3.8.1                 # Gráficos y visualización
+pillow==10.0.1                    # Procesamiento de imágenes (compatible con imageio)
+plotly==5.18.0                    # Gráficos interactivos
+
+# --- Database (Opcional) ---
+sqlalchemy==2.0.23                # ORM para base de datos
+alembic==1.12.1                   # Migraciones de base de datos
+
+# --- Machine Learning Tools ---
+scikit-learn==1.3.2               # Algoritmos ML clásicos
+pandas==2.1.3                     # Análisis de datos
+tensorboard==2.15.1               # Visualización de entrenamiento
+
+# --- Testing (Desarrollo) ---
+pytest==7.4.3                     # Framework de testing
+pytest-asyncio==0.21.1            # Testing asíncrono
+pytest-cov==4.1.0                 # Cobertura de código
+
+# --- Async Processing ---
+aiofiles==23.2.1                  # I/O asíncrono de archivos
+aiohttp==3.9.1                    # Cliente HTTP asíncrono
+
+# --- Video Processing ---
+# av==11.0.0                      # PyAV - DESACTIVADO: incompatible con FFmpeg 8.x, no necesario (usamos subprocess)
+imageio==2.33.0                   # I/O de imágenes y video (actualizado para compatibilidad)
+
+# --- Development Tools ---
+black==23.11.0                    # Formateador de código
+flake8==6.1.0                     # Linter
+mypy==1.7.1                       # Type checking
+pre-commit==3.5.0                 # Git hooks
+
+# ============================================
+# Notas de Instalación:
+# ============================================
+# 
+# 1. Para GPU (NVIDIA):
+#    pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+#
+# 2. Para macOS con Apple Silicon:
+#    Las dependencias funcionan nativamente, torch usará MPS
+#
+# 3. Sistema mínimo:
+#    - Python 3.9+
+#    - 16GB RAM
+#    - GPU con 6GB VRAM (recomendado)
+#
+# 4. Instalar todo:
+#    pip install -r requirements.txt
+#
+# ============================================
+
+
+

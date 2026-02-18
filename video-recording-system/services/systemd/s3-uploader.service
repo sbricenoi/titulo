@@ -1,0 +1,36 @@
+[Unit]
+Description=Ferret S3 Uploader Service
+Documentation=https://github.com/tu-usuario/ferret-system
+After=network.target network-online.target video-recorder.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/video-recording-system
+Environment="PATH=/home/ubuntu/video-recording-system/venv/bin:/usr/local/bin:/usr/bin:/bin"
+Environment="PYTHONUNBUFFERED=1"
+
+# Comando para ejecutar
+ExecStart=/home/ubuntu/video-recording-system/venv/bin/python3 /home/ubuntu/video-recording-system/services/s3_uploader.py
+
+# Reinicio automático
+Restart=always
+RestartSec=10
+
+# Límites de recursos (opcional)
+LimitNOFILE=65536
+Nice=5
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=s3-uploader
+
+# Seguridad (opcional)
+# NoNewPrivileges=true
+# PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

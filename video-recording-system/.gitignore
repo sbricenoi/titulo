@@ -1,0 +1,168 @@
+# ========================================
+# GITIGNORE - Sistema de Grabación de Video
+# ========================================
+
+# ==================== CONFIGURACIÓN SENSIBLE ====================
+# Archivo de configuración con credenciales
+.env
+*.env
+.env.local
+.env.*.local
+
+# Credenciales AWS
+.aws/
+aws-credentials.txt
+
+# ==================== ENTORNO VIRTUAL PYTHON ====================
+venv/
+env/
+ENV/
+.venv/
+*.virtualenv
+
+# ==================== ARCHIVOS PYTHON ====================
+# Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# ==================== VIDEOS Y DATOS ====================
+# Archivos de video (NO subir a git)
+*.mp4
+*.avi
+*.mkv
+*.mov
+*.wmv
+*.flv
+*.webm
+
+# Directorio de datos completo
+data/videos/
+data/logs/*.log
+data/logs/*.log.*
+data/logs/*.zip
+
+# Archivos temporales de FFmpeg
+*.part
+*.tmp
+*.temp
+
+# ==================== LOGS ====================
+# Logs
+*.log
+*.log.*
+logs/
+*.out
+
+# ==================== SISTEMA OPERATIVO ====================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+.directory
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ==================== EDITORES / IDEs ====================
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ==================== OTROS ====================
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Compressed files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Certificates and keys
+*.pem
+*.key
+*.crt
+*.cert
+*.p12
+
+# ==================== MANTENER ESTRUCTURA ====================
+# Mantener directorios vacíos con .gitkeep
+!data/videos/.gitkeep
+!data/logs/.gitkeep
+!.gitkeep

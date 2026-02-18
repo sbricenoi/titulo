@@ -1,0 +1,73 @@
+# Reglas de Cursor para el Proyecto de Monitoreo de Hurones
+
+## Principios Fundamentales
+
+### 1. NO ALUCINAR
+- No inventar funcionalidad que no existe
+- No asumir comportamientos sin verificar el código
+- Verificar siempre antes de afirmar
+- Si no estás seguro, pregunta o investiga primero
+
+### 2. ANALIZAR ANTES DE CAMBIAR
+- Leer el código existente COMPLETO antes de modificar
+- Revisar la documentación del proyecto
+- Entender las dependencias y relaciones entre componentes
+- Buscar código similar existente antes de crear nuevo
+- Usar herramientas de búsqueda (Grep, Read) para entender el contexto
+
+### 3. CLEAN CODE
+- Mantener la estructura simple y clara
+- Evitar duplicación de código
+- Funciones pequeñas con responsabilidad única
+- Nombres descriptivos y autoexplicativos
+- Comentarios solo cuando sea necesario (código autoexplicativo primero)
+- Seguir las convenciones del proyecto existente
+
+## Flujo de Trabajo
+
+1. **Entender el problema**
+   - Lee el código relacionado
+   - Busca documentación existente
+   - Identifica el alcance exacto
+
+2. **Planificar la solución**
+   - Diseña la solución más simple posible
+   - Identifica archivos a modificar
+   - Considera efectos secundarios
+
+3. **Implementar cambios**
+   - Haz cambios mínimos necesarios
+   - Prueba después de cada cambio
+   - Verifica que no rompiste nada
+
+4. **Documentar**
+   - Actualiza documentación si es necesario
+   - Explica los cambios realizados
+   - Deja claro cómo usar la nueva funcionalidad
+
+## Específico para este Proyecto
+
+### Sistema de Grabación de Video
+- Verificar siempre que FFmpeg esté instalado y funcionando
+- Validar conectividad a cámaras antes de iniciar
+- No asumir que procesos siguen corriendo - verificar
+- Logs claros con timestamps para debugging
+
+### Manejo de Errores
+- Capturar errores específicos, no genéricos
+- Logs informativos que ayuden a diagnosticar
+- Fallar rápido con mensajes claros
+
+### Testing
+- Verificar cada cambio inmediatamente
+- No acumular cambios sin probar
+- Confirmar que archivos se crean/suben correctamente
+
+## Recordatorios
+
+- ❌ NO crear código "por si acaso"
+- ❌ NO agregar features no solicitados
+- ❌ NO hacer suposiciones sobre configuración
+- ✅ SÍ verificar antes de afirmar
+- ✅ SÍ mantener simplicidad
+- ✅ SÍ pedir aclaraciones si algo no está claro

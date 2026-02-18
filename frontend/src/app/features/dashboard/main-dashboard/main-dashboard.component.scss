@@ -1,0 +1,33 @@
+/**
+ * Estilos del dashboard principal
+ */
+
+.dashboard-container {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+
+  mat-tab-group {
+    min-height: calc(100vh - 64px);
+    
+    ::ng-deep .mat-mdc-tab-body-wrapper {
+      flex: 1;
+      overflow: visible;
+    }
+  }
+}
+
+.tab-content {
+  min-height: calc(100vh - 120px);
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+}
+
+.section {
+  flex: 1;
+  min-height: 600px;
+}
+

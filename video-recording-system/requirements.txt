@@ -1,0 +1,68 @@
+# ========================================
+# DEPENDENCIAS DEL SISTEMA DE GRABACIÓN
+# ========================================
+#
+# Instalación:
+#   pip install -r requirements.txt
+#
+# Para desarrollo/actualización:
+#   pip install --upgrade -r requirements.txt
+#
+
+# ==================== AWS SDK ====================
+# Para subir archivos a S3
+boto3==1.34.22
+botocore==1.34.22
+
+# ==================== MONITOREO DE ARCHIVOS ====================
+# Para detectar nuevos archivos de video automáticamente
+watchdog==3.0.0
+
+# ==================== LOGGING ====================
+# Logging mejorado con colores y rotación automática
+loguru==0.7.2
+
+# ==================== CONFIGURACIÓN ====================
+# Para manejar variables de entorno desde archivo .env
+python-dotenv==1.0.0
+
+# ==================== UTILIDADES ====================
+# Pathlib2 para compatibilidad con Python < 3.4 (opcional)
+# pathlib2==2.3.7; python_version < '3.4'
+
+# ==================== NOTAS ====================
+# 
+# FFmpeg es requerido pero NO se instala vía pip
+# Instalar FFmpeg según tu sistema operativo:
+#
+#   Linux (Ubuntu/Debian):
+#     sudo apt update
+#     sudo apt install ffmpeg
+#
+#   Linux (CentOS/RHEL):
+#     sudo yum install ffmpeg
+#
+#   macOS:
+#     brew install ffmpeg
+#
+#   Windows:
+#     Descargar de https://ffmpeg.org/download.html
+#
+# Verificar instalación:
+#   ffmpeg -version
+#
+# ==================== VERSIONES DE PYTHON ====================
+# 
+# Este sistema requiere Python 3.8 o superior
+# Probado con:
+#   - Python 3.8
+#   - Python 3.9
+#   - Python 3.10
+#   - Python 3.11
+#   - Python 3.12
+#
+# ==================== DESARROLLO ====================
+#
+# Para desarrollo, instalar dependencias adicionales:
+#   pip install pytest pytest-cov black flake8 mypy
+#

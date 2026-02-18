@@ -1,0 +1,18 @@
+# Dependencias para el Sistema de Grabación de Video
+# Instalación: pip install -r requirements-recorder.txt
+
+# AWS SDK para subir a S3
+boto3==1.34.22
+botocore==1.34.22
+
+# Monitoreo de archivos (detectar nuevos videos)
+watchdog==3.0.0
+
+# Logging mejorado
+loguru==0.7.2
+
+# Variables de entorno
+python-dotenv==1.0.0
+
+# Utilidades
+pathlib2==2.3.7; python_version < '3.4'

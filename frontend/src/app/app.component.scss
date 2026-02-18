@@ -1,0 +1,30 @@
+/**
+ * Estilos del componente raíz
+ */
+
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  mat-icon:first-child {
+    margin-right: 8px;
+  }
+}
+
+.toolbar-title {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.flex-spacer {
+  flex: 1 1 auto;
+}
+
+.app-container {
+  min-height: calc(100vh - 64px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+

@@ -1,0 +1,111 @@
+<!-- Mosaico de Cámaras -->
+<div class="camera-grid-container">
+  <!-- Header -->
+  <div class="grid-header">
+    <h2>
+      <mat-icon>videocam</mat-icon>
+      Cámaras en Vivo
+    </h2>
+    <button mat-icon-button (click)="reload()" matTooltip="Recargar">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Cargando cámaras...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error" class="error-container">
+    <mat-icon>error</mat-icon>
+    <p>{{ error }}</p>
+    <button mat-raised-button color="primary" (click)="reload()">
+      Reintentar
+    </button>
+  </div>
+
+  <!-- Grid de Cámaras -->
+  <div *ngIf="!loading && !error" class="camera-grid">
+    <mat-card *ngFor="let camera of cameras" class="camera-card">
+      <!-- Header de cámara -->
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon [class]="getStatusClass(camera.status)">
+            {{ getStatusIcon(camera.status) }}
+          </mat-icon>
+          {{ camera.name }}
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{ getStatusText(camera.status) }}
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <!-- Frame de video -->
+      <mat-card-content>
+        <div class="video-container">
+          <div class="video-placeholder" [class]="getStatusClass(camera.status)">
+            <mat-icon *ngIf="camera.status !== 'connected'">
+              {{ getStatusIcon(camera.status) }}
+            </mat-icon>
+            <!-- Video HLS player -->
+            <video 
+              *ngIf="camera.status === 'connected'"
+              [id]="'video-' + camera.id"
+              class="video-canvas"
+              autoplay
+              muted
+              playsinline
+              controls>
+              Su navegador no soporta video HTML5
+            </video>
+          </div>
+
+          <!-- Overlay de información -->
+          <div class="video-overlay" *ngIf="camera.fps && camera.resolution">
+            <div class="overlay-stats">
+              <span class="stat">
+                <mat-icon>speed</mat-icon>
+                {{ camera.fps.toFixed(1) }} FPS
+              </span>
+              <span class="stat">
+                <mat-icon>aspect_ratio</mat-icon>
+                {{ camera.resolution[0] }}x{{ camera.resolution[1] }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <!-- Footer con acciones -->
+      <mat-card-actions>
+        <button mat-button>
+          <mat-icon>fullscreen</mat-icon>
+          Ver completo
+        </button>
+        <button mat-button>
+          <mat-icon>settings</mat-icon>
+          Config
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <!-- Estadísticas generales -->
+  <div *ngIf="!loading && cameras.length > 0" class="grid-footer">
+    <div class="footer-stat">
+      <mat-icon>videocam</mat-icon>
+      <span>{{ cameras.length }} cámaras</span>
+    </div>
+    <div class="footer-stat success">
+      <mat-icon>check_circle</mat-icon>
+      <span>{{ getConnectedCount() }} activas</span>
+    </div>
+    <div class="footer-stat error">
+      <mat-icon>error</mat-icon>
+      <span>{{ getDisconnectedCount() }} inactivas</span>
+    </div>
+  </div>
+</div>
+

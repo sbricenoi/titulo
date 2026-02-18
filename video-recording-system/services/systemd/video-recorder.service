@@ -1,0 +1,36 @@
+[Unit]
+Description=Ferret Video Recorder Service
+Documentation=https://github.com/tu-usuario/ferret-system
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/video-recording-system
+Environment="PATH=/home/ubuntu/video-recording-system/venv/bin:/usr/local/bin:/usr/bin:/bin"
+Environment="PYTHONUNBUFFERED=1"
+
+# Comando para ejecutar
+ExecStart=/home/ubuntu/video-recording-system/venv/bin/python3 /home/ubuntu/video-recording-system/services/video_recorder.py
+
+# Reinicio automático
+Restart=always
+RestartSec=10
+
+# Límites de recursos (opcional)
+LimitNOFILE=65536
+Nice=0
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=video-recorder
+
+# Seguridad (opcional)
+# NoNewPrivileges=true
+# PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

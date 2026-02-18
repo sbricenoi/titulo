@@ -1,0 +1,101 @@
+/**
+ * Estilos globales de la aplicación
+ */
+
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #fafafa;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+}
+
+// Desactivar overflow en componentes de Angular Material
+.mat-mdc-tab-body-wrapper {
+  overflow: visible !important;
+}
+
+.mat-drawer-content {
+  overflow: visible !important;
+}
+
+// Scrollbar personalizado
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+// Mejorar espaciado de tabla
+.mat-mdc-table {
+  .mat-mdc-row {
+    min-height: 60px !important;
+  }
+  
+  .mat-mdc-cell {
+    padding: 16px 8px !important;
+  }
+  
+  .mat-mdc-header-cell {
+    padding: 16px 8px !important;
+    font-weight: 600 !important;
+  }
+}
+
+// Mejorar paginador
+.mat-mdc-paginator {
+  background: transparent !important;
+  border-top: 2px solid #e0e0e0 !important;
+  margin-top: 16px !important;
+}
+
+// Utilidades
+.text-center {
+  text-align: center;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.flex-spacer {
+  flex: 1 1 auto;
+}
+
+// Mejorar cards
+.mat-mdc-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 8px !important;
+}
