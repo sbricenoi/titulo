@@ -1,0 +1,34 @@
+# Configuración SSH para conectar al Windows de grabación
+# 
+# INSTRUCCIONES:
+# 1. Copiar este contenido al archivo ~/.ssh/config en tu Mac
+# 2. Si el archivo no existe, créalo con: touch ~/.ssh/config
+# 3. Puedes agregar esto al final del archivo si ya tienes otras configuraciones
+#
+# Comando para agregar automáticamente:
+# cat ssh_config_windows >> ~/.ssh/config
+#
+
+Host windows-grabacion
+    HostName 192.168.0.15
+    User Administrator
+    IdentityFile ~/.ssh/id_ed25519
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    TCPKeepAlive yes
+    ForwardAgent yes
+
+# Alias alternativos (opcional):
+Host windows
+    HostName 192.168.0.15
+    User Administrator
+    IdentityFile ~/.ssh/id_ed25519
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+
+Host ferret-win
+    HostName 192.168.0.15
+    User Administrator
+    IdentityFile ~/.ssh/id_ed25519
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
