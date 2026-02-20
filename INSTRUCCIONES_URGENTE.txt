@@ -1,0 +1,98 @@
+====================================================
+  CONFIGURACIÓN SSH - INSTRUCCIONES URGENTES
+====================================================
+
+⚠️  PROBLEMA DETECTADO:
+Windows está rechazando la autenticación por contraseña.
+
+📋 SOLUCIÓN (2 MINUTOS):
+
+1️⃣  EN EL WINDOWS (192.168.0.15):
+
+   a) Buscar el archivo: HABILITAR_SSH_PASSWORD.ps1
+      (Debería estar en el escritorio o en C:\titulo si clonaste)
+
+   b) Click DERECHO sobre el archivo
+   
+   c) Seleccionar "Ejecutar con PowerShell"
+      O "Ejecutar como administrador"
+
+   d) Si sale advertencia de seguridad:
+      - Escribe: Y (Yes)
+      - Presiona Enter
+
+   e) El script automáticamente:
+      ✅ Habilitará autenticación por contraseña
+      ✅ Reiniciará SSH
+      ✅ Te mostrará los datos de conexión
+
+2️⃣  DESDE TU MAC:
+
+   Después de ejecutar el script en Windows:
+
+   cd ~/Documents/projects/titulo
+   ./configurar_ssh_windows.sh
+
+   Cuando te pida:
+   - Usuario: brice
+   - Contraseña: 341341
+
+====================================================
+
+💡 SI NO TIENES EL ARCHIVO EN WINDOWS:
+
+Opción A - Crear manualmente:
+1. Abrir Notepad como Administrador
+2. Copiar el contenido desde GitHub:
+   https://github.com/sbricenoi/titulo/blob/main/HABILITAR_SSH_PASSWORD.ps1
+3. Guardar como: HABILITAR_SSH_PASSWORD.ps1
+4. Ejecutar
+
+Opción B - Descargar:
+1. Ir a: https://github.com/sbricenoi/titulo
+2. Clic en "HABILITAR_SSH_PASSWORD.ps1"
+3. Clic en "Raw"
+4. Guardar (Ctrl+S)
+5. Ejecutar como administrador
+
+Opción C - Configuración manual (avanzado):
+1. Abrir PowerShell como Administrador
+2. Ejecutar:
+
+notepad C:\ProgramData\ssh\sshd_config
+
+3. Buscar y modificar/agregar estas líneas:
+
+PasswordAuthentication yes
+PubkeyAuthentication yes
+
+4. Comentar (agregar # al inicio):
+
+# Match Group administrators
+
+5. Guardar y cerrar
+6. Reiniciar SSH:
+
+Restart-Service sshd
+
+====================================================
+
+✅ DESPUÉS DE CONFIGURAR:
+
+Desde tu Mac:
+./verificar_windows.sh
+
+Deberías ver:
+✅ Windows está en línea
+✅ SSH está disponible
+✅ Conexión exitosa
+
+====================================================
+
+📞 DATOS DE CONEXIÓN:
+
+Usuario: brice
+IP: 192.168.0.15
+PIN: 341341
+
+====================================================
