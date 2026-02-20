@@ -6,7 +6,7 @@
 # ====================================
 
 WINDOWS_IP="192.168.0.15"
-WINDOWS_USER="Administrator"
+WINDOWS_USER="brice"
 PROJECT_PATH="C:\\Users\\${WINDOWS_USER}\\titulo"
 
 echo "======================================"

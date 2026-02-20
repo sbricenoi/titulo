@@ -1,0 +1,79 @@
+====================================================
+   RESUMEN: CONFIGURACIÓN SSH WINDOWS
+====================================================
+
+✅ LO QUE YA ESTÁ HECHO (en tu Mac):
+----------------------------------------------------
+✅ Clave SSH generada
+✅ Configuración SSH creada (~/.ssh/config)
+✅ Usuario configurado: brice
+✅ Scripts de administración listos
+✅ Todo subido a GitHub
+
+📊 ESTADO ACTUAL:
+----------------------------------------------------
+Mac IP: 192.168.0.3 (tu Mac)
+Windows IP: 192.168.0.15
+Windows Usuario: brice (casa\brice)
+Windows PIN: 341341
+SSH Puerto: 22 ✅ ABIERTO
+
+⚠️  PROBLEMA: Windows rechaza autenticación por contraseña
+
+====================================================
+   🚀 SIGUIENTE PASO (SOLO 1 MINUTO)
+====================================================
+
+VE AL WINDOWS (192.168.0.15) Y:
+
+1. Descargar archivo:
+   https://raw.githubusercontent.com/sbricenoi/titulo/main/HABILITAR_SSH_PASSWORD.ps1
+
+2. Click DERECHO > "Ejecutar con PowerShell"
+   (o "Ejecutar como administrador")
+
+3. Si pregunta, escribe: Y
+
+4. LISTO - El script configura todo automáticamente
+
+====================================================
+
+DESPUÉS, DESDE TU MAC:
+
+./configurar_ssh_windows.sh
+
+Usuario: brice
+PIN: 341341
+
+====================================================
+
+📝 SCRIPTS DISPONIBLES (para después):
+
+./conectar_windows.sh         → Conectar al Windows
+./verificar_windows.sh         → Ver estado del sistema
+./monitorear_grabacion.sh      → Monitor en tiempo real
+./ver_logs_remoto.sh           → Ver logs en vivo
+
+====================================================
+
+🎯 FLUJO COMPLETO:
+
+1. Ejecutar HABILITAR_SSH_PASSWORD.ps1 en Windows
+2. Ejecutar ./configurar_ssh_windows.sh en Mac
+3. Probar: ./verificar_windows.sh
+4. Clonar proyecto en Windows (si no está)
+5. Ejecutar instalador: INSTALAR_SIMPLE.bat
+6. ¡Sistema funcionando!
+
+====================================================
+
+📚 DOCUMENTACIÓN COMPLETA:
+
+- INSTRUCCIONES_URGENTE.txt  → Solución rápida
+- PASOS_CONFIGURACION.md      → Guía paso a paso
+- ACCESO_REMOTO_WINDOWS.md    → Manual completo SSH
+- CONFIGURAR_SSH.md           → Configuración detallada
+
+Todo en: https://github.com/sbricenoi/titulo
+
+====================================================

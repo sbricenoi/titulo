@@ -6,7 +6,7 @@
 # ====================================
 
 WINDOWS_IP="192.168.0.15"
-WINDOWS_USER="Administrator"
+WINDOWS_USER="brice"
 
 echo "======================================"
 echo "🖥️  CONECTANDO A WINDOWS"
