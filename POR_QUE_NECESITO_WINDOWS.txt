@@ -1,0 +1,94 @@
+====================================================
+     ¿POR QUÉ NO PUEDO EJECUTARLO DESDE TU MAC?
+====================================================
+
+🔒 EL PROBLEMA (Círculo Vicioso):
+
+1. SSH en Windows está rechazando contraseñas
+   └─> Por eso no puedo conectarme remotamente
+   
+2. Para arreglar SSH, necesito ejecutar el script
+   └─> Pero el script solo se puede ejecutar SI puedo conectarme
+   
+3. No puedo conectarme sin arreglar SSH
+   └─> ¡Círculo vicioso!
+
+====================================================
+
+❌ LO QUE INTENTÉ (sin éxito):
+
+✗ SSH con contraseña (341341)
+  → Permission denied
+  
+✗ SSH con diferentes métodos de autenticación
+  → Todos rechazados
+  
+✗ RDP (Escritorio Remoto)
+  → Puerto 3389 cerrado (no habilitado)
+
+====================================================
+
+✅ SOLUCIÓN (la única forma):
+
+Necesitas ejecutar el script FÍSICAMENTE en el Windows
+(o que alguien que esté ahí lo haga)
+
+Es literalmente 30 segundos:
+
+1. En el Windows, abrir navegador
+2. Ir a: https://github.com/sbricenoi/titulo
+3. Botón "Code" > "Download ZIP"
+4. Extraer ZIP
+5. Click derecho en CONFIGURAR_TODO.bat
+6. "Ejecutar como administrador"
+7. ¡LISTO!
+
+====================================================
+
+🎯 DESPUÉS DE ESO:
+
+Desde tu Mac podré hacer TODO remotamente:
+
+✅ Conectarme por SSH
+✅ Clonar el proyecto
+✅ Instalar dependencias
+✅ Configurar el sistema
+✅ Iniciar grabación
+✅ Monitorear todo
+✅ Ver logs
+✅ Reiniciar servicios
+
+¡TODO desde tu Mac sin tocar el Windows nunca más!
+
+====================================================
+
+💡 ALTERNATIVAS (si no puedes ir al Windows ahora):
+
+1. TeamViewer / AnyDesk
+   → Si tienes acceso remoto configurado
+   
+2. Pedirle a alguien que esté cerca del Windows
+   → Que ejecute CONFIGURAR_TODO.bat como admin
+   
+3. Esperar hasta que puedas ir físicamente
+   → Son solo 30 segundos
+
+====================================================
+
+📝 UNA VEZ:
+
+Solo necesitas hacer esto UNA VEZ.
+
+Después de ejecutar CONFIGURAR_TODO.bat:
+- SSH quedará configurado permanentemente
+- Podrás conectarte desde tu Mac siempre
+- Todo será remoto
+- Sin contraseñas (clave SSH)
+
+====================================================
+
+⏰ TIEMPO TOTAL: 30 segundos en el Windows
+
+Después: Administración 100% remota desde tu Mac ✅
+
+====================================================
