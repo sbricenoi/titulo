@@ -58,11 +58,21 @@ data/debug/
 *.jpg
 *.jpeg
 
-# Videos grabados
+# Videos grabados (TODOS los formatos)
 data/recordings/
 *.mp4
 *.avi
 *.mov
+*.mkv
+*.flv
+*.wmv
+*.webm
+*.m4v
+*.mpg
+*.mpeg
+*.3gp
+*.ts
+*.m2ts
 
 # Calibración (puede contener info sensible)
 data/calibration/*.json

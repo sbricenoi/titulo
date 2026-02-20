@@ -132,6 +132,9 @@ class RecorderConfig:
     # Intervalo de monitoreo de procesos (segundos)
     MONITOR_INTERVAL = int(os.getenv("MONITOR_INTERVAL", "30"))
     
+    # Eliminar inmediatamente después de subir a S3 (ahorra espacio)
+    DELETE_IMMEDIATELY_AFTER_UPLOAD = os.getenv("DELETE_IMMEDIATELY_AFTER_UPLOAD", "true").lower() == "true"
+    
     # Comprimir antes de subir (experimental)
     ENABLE_COMPRESSION = os.getenv("ENABLE_COMPRESSION", "false").lower() == "true"
     

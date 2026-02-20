@@ -1,0 +1,54 @@
+# ============================================
+# Configuración para Lightsail (Cloud)
+# ============================================
+# 
+# IMPORTANTE: Este servidor NO graba de cámaras.
+# Solo procesa videos desde S3.
+#
+
+# ==================== AWS S3 ====================
+# Credenciales para descargar videos desde S3
+AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+AWS_REGION=us-east-2
+S3_BUCKET_NAME=ferret-recordings-bucket
+
+# ==================== ANÁLISIS ====================
+# Configuración del modelo YOLO
+YOLO_MODEL=yolov8n.pt
+CONFIDENCE_THRESHOLD=0.4
+
+# Clases a detectar (separadas por coma)
+# Para hurones, usa las clases que detecte el modelo
+TARGET_CLASSES=cat,dog
+
+# ==================== API ====================
+# Puerto del servidor FastAPI
+API_PORT=8000
+
+# ==================== PATHS ====================
+# Directorios en Lightsail
+BASE_DIR=/home/ubuntu/titulo
+VIDEOS_DIR=/home/ubuntu/titulo/data/videos/from_s3
+ANALYSIS_DIR=/home/ubuntu/titulo/data/analysis_results
+SMART_ANALYSIS_DIR=/home/ubuntu/titulo/data/smart_analysis_results
+FRAMES_DIR=/home/ubuntu/titulo/data/frames_for_classification
+LOGS_DIR=/home/ubuntu/titulo/logs
+
+# ==================== PROCESAMIENTO ====================
+# Intervalo de revisión de S3 (segundos)
+S3_CHECK_INTERVAL=300
+
+# Eliminar videos locales después de subir exitosamente a S3
+DELETE_IMMEDIATELY_AFTER_UPLOAD=true
+
+# Horas de retención local (si DELETE_IMMEDIATELY_AFTER_UPLOAD=false)
+LOCAL_RETENTION_HOURS=1
+
+# ==================== LOGGING ====================
+LOG_LEVEL=INFO
+
+# ==================== NO INCLUIR ====================
+# ❌ NO incluir CAMERA_X_URL
+# ❌ Las cámaras NO son accesibles desde Lightsail
+# ❌ La grabación se hace en local

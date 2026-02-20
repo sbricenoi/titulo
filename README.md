@@ -267,6 +267,23 @@ titulo/
 └── SETUP.md                     # Guía de instalación detallada
 ```
 
+## 🔍 Verificar Sistema
+
+```bash
+./VERIFICAR_SISTEMA.sh
+```
+
+Este script verifica:
+- ✅ Configuración de .env
+- ✅ Conectividad de cámaras
+- ✅ Procesos en ejecución
+- ✅ Grabación de videos
+- ✅ Conexión a S3
+- ✅ Análisis y frames
+- ✅ API y frontend
+
+---
+
 ## 📚 Documentación
 
 - **SETUP.md** - Guía completa de instalación y configuración

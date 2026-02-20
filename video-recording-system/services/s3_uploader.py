@@ -420,16 +420,28 @@ class VideoFileHandler(FileSystemEventHandler):
             success = self.uploader.upload_file(file_path)
             
             if success:
-                # Mover a carpeta uploaded
-                uploaded_path = config.UPLOADED_DIR / file_path.name
-                
-                try:
-                    file_path.rename(uploaded_path)
-                    logger.debug(f"   ✓ Movido a: uploaded/")
-                    logger.success(f"✅ Procesado exitosamente: {file_path.name}")
+                # Decidir si eliminar inmediatamente o mover a uploaded/
+                if config.DELETE_IMMEDIATELY_AFTER_UPLOAD:
+                    # ELIMINAR INMEDIATAMENTE después de subir exitosamente
+                    try:
+                        file_size_mb = file_path.stat().st_size / (1024 * 1024)
+                        file_path.unlink()
+                        logger.debug(f"   ✓ Eliminado localmente ({file_size_mb:.1f} MB liberados)")
+                        logger.success(f"✅ Procesado y eliminado: {file_path.name}")
+                        
+                    except Exception as e:
+                        logger.error(f"✗ Error eliminando archivo: {e}")
+                else:
+                    # MOVER a uploaded/ para eliminar después según retención
+                    uploaded_path = config.UPLOADED_DIR / file_path.name
                     
-                except Exception as e:
-                    logger.error(f"✗ Error moviendo archivo a uploaded/: {e}")
+                    try:
+                        file_path.rename(uploaded_path)
+                        logger.debug(f"   ✓ Movido a: uploaded/")
+                        logger.success(f"✅ Procesado exitosamente: {file_path.name}")
+                        
+                    except Exception as e:
+                        logger.error(f"✗ Error moviendo archivo a uploaded/: {e}")
             else:
                 logger.error(f"❌ No se pudo subir: {file_path.name}")
                 

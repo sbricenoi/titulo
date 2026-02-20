@@ -1,0 +1,70 @@
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║     SISTEMA DE CAMARAS - INSTALACION AUTOMATICA WINDOWS         ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+
+📋 PASOS RAPIDOS:
+
+1. Copia esta carpeta completa al equipo Windows
+
+2. Haz click derecho en: INSTALAR_SIMPLE.bat
+
+3. Selecciona: "Ejecutar como administrador"
+
+4. Sigue las instrucciones en pantalla
+
+5. Tiempo total: 30-60 minutos
+
+⏱️  El script hace TODO automaticamente:
+   ✅ Instala Git, Python, Node.js, FFmpeg, Tailscale
+   ✅ Clona/copia el proyecto
+   ✅ Instala dependencias Python
+   ✅ Crea estructura de directorios
+   ✅ Genera scripts de inicio/detención
+   ✅ Configura inicio automático (opcional)
+
+📝 Durante la instalación:
+   - Se abrirán algunas ventanas de instalación
+   - Acepta los términos y condiciones
+   - Usa opciones por defecto
+   - NO cierres las ventanas hasta que terminen
+
+🔐 Configuración manual requerida:
+   - Autenticar Tailscale (aparecerá navegador)
+   - Aprobar subnet routes en Tailscale admin
+   - Editar archivo .env con credenciales AWS
+
+🎯 Al finalizar:
+   - Ejecuta: C:\titulo\INICIAR_SISTEMA.bat
+   - Verifica: C:\titulo\VERIFICAR_SISTEMA.bat
+
+📚 Documentación completa:
+   - INSTALACION_WINDOWS.md (guía detallada)
+   - CONFIGURACION_AHORRO_ESPACIO.md (ahorro de disco)
+
+═══════════════════════════════════════════════════════════════════
+
+⚠️  IMPORTANTE: 
+
+1. Conexión a internet requerida
+2. ~5 GB de descargas
+3. Ejecutar como Administrador
+4. No apagar el equipo durante instalación
+
+═══════════════════════════════════════════════════════════════════
+
+✅ Una vez instalado:
+   
+   El sistema funcionará 24/7 automáticamente
+   ✅ Graba de cámaras
+   ✅ Sube a S3
+   ✅ Elimina localmente
+   ✅ Sin intervención manual
+
+═══════════════════════════════════════════════════════════════════
+
+📞 Soporte:
+   Ver: INSTALACION_WINDOWS.md (sección Troubleshooting)
+
+═══════════════════════════════════════════════════════════════════
