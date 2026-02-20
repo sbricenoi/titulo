@@ -1,0 +1,66 @@
+====================================================
+   ⚡ CONFIGURACIÓN RÁPIDA - 30 SEGUNDOS
+====================================================
+
+🎯 EN EL WINDOWS (192.168.0.15):
+
+OPCIÓN 1 - MÁS FÁCIL:
+  1. Descargar: https://github.com/sbricenoi/titulo
+     (Botón verde "Code" > Download ZIP)
+  
+  2. Extraer el ZIP
+  
+  3. Click DERECHO en: CONFIGURAR_TODO.bat
+  
+  4. Seleccionar: "Ejecutar como administrador"
+  
+  5. ¡LISTO! El script hace todo automáticamente
+
+----------------------------------------------------
+
+OPCIÓN 2 - DIRECTO:
+  1. Copiar este link:
+     https://raw.githubusercontent.com/sbricenoi/titulo/main/HABILITAR_SSH_PASSWORD.ps1
+  
+  2. Abrir PowerShell como Administrador
+  
+  3. Ejecutar:
+     
+     Invoke-WebRequest -Uri "https://raw.githubusercontent.com/sbricenoi/titulo/main/HABILITAR_SSH_PASSWORD.ps1" -OutFile "$env:TEMP\ssh.ps1"; & "$env:TEMP\ssh.ps1"
+
+----------------------------------------------------
+
+🎯 DESPUÉS, EN TU MAC:
+
+cd ~/Documents/projects/titulo
+./configurar_ssh_windows.sh
+
+Cuando te pida:
+  Usuario: brice
+  PIN: 341341
+
+====================================================
+
+✅ AL TERMINAR:
+
+Probar conexión:
+  ssh windows-grabacion
+
+Ver estado:
+  ./verificar_windows.sh
+
+====================================================
+
+💡 DATOS ÚTILES:
+
+Windows:
+  - IP: 192.168.0.15
+  - Usuario: brice (casa\brice)
+  - PIN: 341341
+
+Cámaras:
+  - 192.168.0.7
+  - 192.168.0.8
+  - 192.168.0.9
+
+====================================================
