@@ -1,6 +1,69 @@
 # ==========================================
 # Ferret Monitoring System - .gitignore
+# Solo video-recording-system y frontend
 # ==========================================
+
+# IGNORAR TODO el proyecto principal
+/ai/
+/api/
+/core/
+/data/
+/deploy/
+/docs/
+/logs/
+/models/
+/services/
+/utils/
+/__pycache__/
+/venv/
+
+# Scripts locales (no necesarios en Windows)
+/ABRIR_BACKOFFICE.sh
+/INICIAR_FRONTEND.sh
+/INICIAR_SISTEMA_FINAL.sh
+/LIMPIEZA_COMPLETA.sh
+/REINICIAR_SISTEMA_LIMPIO.sh
+/START_RECORDING_WITH_TRACKING.sh
+/VERIFICAR_SISTEMA.sh
+/intentar_acceso_router.sh
+/probar_desde_internet.sh
+/verificar_port_forwarding.sh
+
+# Docs innecesarios para Windows
+/ACCESO_ROUTER_VTR.md
+/ARQUITECTURA_FUNCIONAL.md
+/COMO_INICIAR_SISTEMA.md
+/CONFIGURACION_AHORRO_ESPACIO.md
+/CONFIGURAR_PORT_FORWARDING.md
+/EXPONER_CAMARAS_LIGHTSAIL.md
+/PASOS_PORT_FORWARDING_VTR.md
+/SETUP.md
+/SUBIR_A_GITHUB.md
+
+# Archivos del proyecto principal
+/auto_analyze_videos.py
+/config.py
+/docker-compose.yml
+/env.example
+/extract_frames.py
+/extract_sample_frames.py
+/main.py
+/nginx.conf
+/process_local_videos.py
+/process_s3_videos.py
+/requirements.txt
+/requirements-recorder.txt
+/start_api_classification.sh
+/stop_recorder_robusto.sh
+/test_*.py
+/test_s3_processor.sh
+/train_ferret_model.py
+/yolov8n.pt
+/.cursorrules
+
+# Archivos temporales
+/Archivo.zip
+/README.md
 
 # Python
 __pycache__/
@@ -12,10 +75,19 @@ __pycache__/
 dist/
 build/
 .Python
+
+# Entornos virtuales
 env/
 venv/
 ENV/
 .venv
+*/venv/
+*/ENV/
+
+# Node modules
+node_modules/
+*/node_modules/
+**/node_modules/
 
 # IDEs
 .vscode/
@@ -23,43 +95,25 @@ ENV/
 *.swp
 *.swo
 *~
+
+# Sistema
 .DS_Store
+Thumbs.db
 
-# Jupyter Notebooks
-.ipynb_checkpoints/
-*.ipynb
-
-# Environment variables
+# Environment variables (NUNCA committear)
 .env
 .env.local
 .env.*.local
+*.env
+!*.env.example
+!*env.example
 
 # Logs
 *.log
-data/logs/
 logs/
+*/logs/
 
-# Modelos entrenados (muy pesados)
-data/models/*.pt
-data/models/*.pth
-data/models/*.onnx
-data/models/checkpoints/
-!data/models/.gitkeep
-
-# Datos de entrenamiento
-data/training/clips/
-data/training/annotations/
-data/training/raw/
-!data/training/.gitkeep
-
-# Debug frames
-data/debug/
-*.png
-*.jpg
-*.jpeg
-
-# Videos grabados (TODOS los formatos)
-data/recordings/
+# Videos grabados
 *.mp4
 *.avi
 *.mov
@@ -74,43 +128,19 @@ data/recordings/
 *.ts
 *.m2ts
 
-# Calibración (puede contener info sensible)
-data/calibration/*.json
-!data/calibration/.gitkeep
-
-# Base de datos
-*.db
-*.sqlite
-*.sqlite3
-
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
-.tox/
-
-# Documentation builds
-docs/_build/
-site/
-
 # Temporal
 *.tmp
 *.temp
+*.backup
 tmp/
 temp/
 
-# Sistema
-Thumbs.db
-.DS_Store
-
-# Configuración local (no committear credenciales)
-config.local.py
-credentials.json
-secrets.json
-
-
-
-
-
+# Archivos de claves (CRÍTICO)
 *.pem
 *.key
+*.zip
+
+# Build outputs
+dist/
+build/
+*.egg-info/
